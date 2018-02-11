@@ -1,6 +1,6 @@
 <p align="left"><img height="70" src="https://github.com/gulicodev/ElectrifyTV/blob/master/electrify.png" /></p>
 
-The Electrify project is a project aimed at building an open-source lean-back media centre using modern web technologies.
+Electrify is a project with the mission of building an open-source lean-back media centre using modern web technologies.
 
 ## Getting Started
 
