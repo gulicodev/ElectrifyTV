@@ -6,10 +6,6 @@ Electrify is a project with the mission of building an open-source lean-back med
 
 If you'd like to contribute you're more than welcome!
 
-### Installing
-
-The current architecture is limited, and was last
-
 ## License
 
 This project is licensed under the MIT License.
