@@ -1,0 +1,163 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Launcher</title>
+  <meta name="TV Launcher" content="TV Launcher">
+  <meta name="thereg" content="thereg">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="color-thief.js"></script>
+<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,700' rel='stylesheet' type='text/css'></head>
+
+<body onload="startTime()">
+
+<div id="testDiv"></div>
+
+<div id="container" class="container">
+
+<div class="banner">
+
+  <div class="title-time"><a id="time"></a></div>
+</div>
+
+<div class="section">
+  <div class="section-heading">Apps</div>
+    <div id="app-section"></div>
+</div>
+
+<div class="section">
+<div class="section-heading">Music</div>
+<div id="music-section">
+  <div class="music-card"></div>
+    <div class="music-card"></div>
+      <div class="music-card"></div>
+        <div class="music-card"></div>
+          <div class="music-card"></div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-heading">Movies</div>
+<div id="music-section">
+  <div class="card"></div>
+</div>
+</div>
+
+
+</div>
+
+</body>
+
+<script>
+console.log($(window).width());
+
+
+var motionSound = new Audio("click.wav"); // buffers automatically when created
+
+function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    m = checkTime(m);
+    document.getElementById('time').innerHTML =
+    h + ":" + m;
+    var t = setTimeout(startTime, 500);
+}
+function checkTime(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+}
+
+var cards = new Array();
+var position = cards.length;
+
+
+cards.push(new Array("YouTube", "a54niMsHo6", "youtube.png", 'http://youtube.com/tv', "#E62D28", "#FFFFFF"))
+cards.push(new Array("SkyGo", "tsky3Kst5q", "skygo.png", "http://skygo.co.nz/"))
+cards.push(new Array("Vimeo", "qsertJr91e", "vimeo.png", "https://vimeo.com/couchmode/", "#1EB7FF", "#FFFFFF"))
+cards.push(new Array("TuneIn Radio", "ttar3Kst5q", "tunein.png", "http://tv.tunein.com/"))
+cards.push(new Array("IGN", "sIgarzJr21g", "ign.png", "http://au.ign.com/videos/tv/"))
+cards.push(new Array("Weather Channel", "weatarzJr21g", "weatherchannel.png", "http://www.weather.com/"))
+
+for(var i = 0; i < cards.length; i++){
+  var div = '<div id="' + cards[i][1] + '" class="card" />'
+  $(div).appendTo(document.getElementById("app-section"));
+  var img = '<img class="app-icon"' + 'src="' + cards[i][2] + '" />'
+  $(img).appendTo(document.getElementById(cards[i][1]));
+}
+
+$(document).keydown(function(e) {
+  var cardHolder = document.getElementById("app-section")
+
+  if(e.which == 39){ // left
+    console.log(position);
+    if(position > - (cards.length - 1)){
+      $(cardHolder).animate({
+              marginLeft: '-=430px',
+      }, 280);
+      motionSound.play();
+      $(document.getElementById(cards[Math.abs(position)][1])).removeClass("active");
+      position --;
+      $(document.getElementById(cards[Math.abs(position)][1])).addClass("active");
+    }
+  }
+  if(e.which == 37){ //right
+    console.log(position);
+    if(position < (0)){
+      $(cardHolder).animate({
+              marginLeft: '+=430px',
+      }, 280);
+      motionSound.play();
+      $(document.getElementById(cards[Math.abs(position)][1])).removeClass("active");
+      position ++;
+      $(document.getElementById(cards[Math.abs(position)][1])).addClass("active");
+    }
+  }
+
+  if(e.which == 13){ //right
+    location.href=(cards[Math.abs(position)][3]);
+  }
+
+  if(e.which == 38){ //down
+    var cardHolder = document.getElementById("container")
+    $(cardHolder).animate({
+            marginTop: '+=380px',
+    }, 280);
+  }
+
+  if(e.which == 40){ //down
+    var cardHolder = document.getElementById("container")
+    $(cardHolder).animate({
+            marginTop: '-=380px',
+    }, 280);
+  }
+
+
+    // switch(e.which) {
+    //     case 37: // left
+    //     break;
+    //
+    //     case 38: // up
+    //     break;
+    //
+    //     case 39: // right
+    //     break;
+    //
+    //     case 40: // down
+    //     break;
+    //
+    //     default: return; // exit this handler for other keys
+    // }
+    // e.preventDefault(); // prevent the default action (scroll / move caret)
+});
+
+var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+var d = new Date();
+document.getElementById("day").innerHTML = d.getDate();
+document.getElementById("month").innerHTML = months[d.getMonth()];
+
+</script>
+
+</html>
